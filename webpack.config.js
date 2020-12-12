@@ -1,17 +1,46 @@
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
-module.exports = function(_env, argv) {
-  const isProduction = argv.mode === "production";
-  const isDevelopment = !isProduction;
-
-  return {
-	devtool: isDevelopment && "cheap-module-source-map",
-	entry: "./src/index.js",
+module.exports = {
+	module: {
+		rules: [
+		  {
+			// test: /\.css$/,
+			// use: [
+			// 	// In webpack, the order in which loaders appear in the configuration is of high importance.
+			// 	// The following configuration is invalid:
+			// 	//
+			// 	// "css-loader",
+			// 	// "style-loader",
+			// 	//
+			// 	// Here "style-loader" appears before "css-loader". But style-loader is for injecting the style in the page, not for loading the actual CSS file.
+			// 	//
+			// 	// The following configuration instead is valid:
+			// 	//
+			// 	"style-loader",
+			// 	"css-loader",
+			// ],
+			test: /\.scss$/,
+			use: [
+				"style-loader",
+				"css-loader",
+				"sass-loader",
+			],
+		  },
+		]
+	},
+	entry: {
+		index: path.resolve(__dirname, "src", "index.js"),
+	},
 	output: {
-	  path: path.resolve(__dirname, "dist"),
-	//   filename: "assets/js/[name].[contenthash:8].js",
-	  filename: "assets/js/bundle.js",
-	  publicPath: "/"
-	}
-  };
+		path: path.resolve(__dirname, "build"),
+	},
+	devServer: {
+		open: true,
+	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: path.resolve(__dirname, "src", "index.html"),
+		})
+	],
 };
