@@ -4,6 +4,18 @@ $font: "Karla", sans-serif;
 $primary-color: #991340;
 
 body {
-	font-family: $font;
-	color: $primary-color;
+  font-family: $font;
+  color: $primary-color;
+}
+
+.layout {
+  display: flex;
+  > .layout_item {
+    flex: 1;
+  }
+}
+
+.border {
+  border: 1px solid;
+  padding: 0.25rem;
 }

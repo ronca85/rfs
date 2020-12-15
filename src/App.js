@@ -1,33 +1,14 @@
-import React, { useState } from "react"
+import "./styles/style.scss"
 
-const App = () => {
-	const [state, setState] = useState("click me");
-	const [users, setUsers] = useState();
+import React from "react"
+import SiteBody from "./components/SiteBody"
+import SiteHeader from "./components/SiteHeader"
 
-	const getUserModule = () => import("./common/usersAPI");
-	const displayData = () => {
-		getUserModule().then(({ getUsers }) => {
-			getUsers().then( json => {
-				setUsers( json );
-				console.log( state, users )
-			} );
-		});
-	}
-
+export default () => {
 	return (
-		<div>
-			<h1>Hello</h1>
-			<button onClick={() => setState("Thanks! 🥰")}>{state}</button>
-			<div className="loadjson">
-				<button onClick={() => setUsers( displayData )}>load json</button>
-
-				<pre>
-					{/* { this.users.json.stringify( data, null, 2 ) } */}
-					{/* { users.stringify( data, null, 2 ) } */}
-				</pre>
-			</div>
-		</div>
-	)
+		<>
+			<SiteHeader />
+			<SiteBody />
+		</>
+	);
 }
-
-export default App
